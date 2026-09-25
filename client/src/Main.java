@@ -14,8 +14,9 @@ void main() {
         var client = new Client("localhost", ProtocolConstants.DEFAULT_PORT);
         var wnd = new MainWindow();
         wnd.setLocationRelativeTo(null);
-        // исправление 1: раньше клиент не знал про окно (window был null) и ничего не рисовал
-        client.setWindow(wnd);
+        // исправление 1: клиент не знает про окно, окно само подписывается на точки от клиента
+        client.addPointListener(wnd::addPoint);
+        client.addStopListener(wnd::dispose);
         wnd.addUserActionListener((type, point)->{
             var cmd = switch (type){
                 case STOP_PAINT -> CommandType.FINISH_PAINT;
