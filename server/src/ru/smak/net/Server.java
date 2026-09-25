@@ -25,11 +25,11 @@ public class Server {
                     } catch (Exception e) {
                         System.out.println("Ошибка подключения клиентов...");
                         System.out.println(e.getMessage());
-                        isActive = false;
                     }
                 }
             } catch (IOException e) {
                 System.out.println("Ошибка включения сервера");
+                System.out.println(e.getMessage());
             }
         }).start();
     }

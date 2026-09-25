@@ -14,6 +14,7 @@ void main() {
         var client = new Client("localhost", ProtocolConstants.DEFAULT_PORT);
         var wnd = new MainWindow();
         wnd.setLocationRelativeTo(null);
+        client.setWindow(wnd);
         wnd.addUserActionListener((type, point)->{
             var cmd = switch (type){
                 case STOP_PAINT -> CommandType.FINISH_PAINT;

@@ -22,6 +22,10 @@ public class Client {
         communicator.start();
     }
 
+    public void setWindow(MainWindow w){
+        window = w;
+    }
+
     private void parseData(String data){
         if (data == null) {
             stop();
@@ -34,7 +38,7 @@ public class Client {
                 if (window != null ){
                     switch (type){
                         case CommandType.POINT -> {
-                            var colorPoint = data.split(ProtocolConstants.OBJECT_SEPARATOR, 2);
+                            var colorPoint = fullInfo[1].split(ProtocolConstants.OBJECT_SEPARATOR, 2);
                             if (colorPoint.length == 2){
                                 try {
                                     var color = Integer.parseInt(colorPoint[0]);
@@ -52,7 +56,7 @@ public class Client {
                         }
                         case FINISH_PAINT -> {
                             try {
-                                var color = Integer.parseInt(data);
+                                var color = Integer.parseInt(fullInfo[1]);
                                 window.addPoint(color, null);
                             } catch (Exception e){
                                 System.err.println("Ошибка преобразования принятых данных");

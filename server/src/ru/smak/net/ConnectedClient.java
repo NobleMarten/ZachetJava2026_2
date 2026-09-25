@@ -37,7 +37,13 @@ public class ConnectedClient {
         }
         var splitData = data.split(ProtocolConstants.COMMAND_SEPARATOR, 2);
         if (splitData.length == 2){
-            var command = CommandType.valueOf(splitData[0]);
+            CommandType command;
+            try {
+                command = CommandType.valueOf(splitData[0]);
+            } catch (Exception e) {
+                System.err.println("неизвестная команда " + splitData[0]);
+                return;
+            }
             switch (command){
                 case POINT -> {
                     try {
@@ -46,9 +52,9 @@ public class ConnectedClient {
                             var x = Double.parseDouble(coords[0]);
                             var y = Double.parseDouble(coords[1]);
                             var info = color
-                                    + ProtocolConstants.PROPERTY_SEPARATOR
-                                    + x
                                     + ProtocolConstants.OBJECT_SEPARATOR
+                                    + x
+                                    + ProtocolConstants.PROPERTY_SEPARATOR
                                     + y;
                             sendForAll(CommandType.POINT, info);
                         }
