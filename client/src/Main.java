@@ -14,6 +14,7 @@ void main() {
         var client = new Client("localhost", ProtocolConstants.DEFAULT_PORT);
         var wnd = new MainWindow();
         wnd.setLocationRelativeTo(null);
+        // исправление 1: раньше клиент не знал про окно (window был null) и ничего не рисовал
         client.setWindow(wnd);
         wnd.addUserActionListener((type, point)->{
             var cmd = switch (type){

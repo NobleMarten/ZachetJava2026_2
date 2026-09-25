@@ -37,6 +37,7 @@ public class ConnectedClient {
         }
         var splitData = data.split(ProtocolConstants.COMMAND_SEPARATOR, 2);
         if (splitData.length == 2){
+            // исправление 5: если команда неизвестная, valueOf кидал исключение и соединение закрывалось
             CommandType command;
             try {
                 command = CommandType.valueOf(splitData[0]);
@@ -51,6 +52,7 @@ public class ConnectedClient {
                         if (coords.length == 2) {
                             var x = Double.parseDouble(coords[0]);
                             var y = Double.parseDouble(coords[1]);
+                            // исправление 4: разделители были перепутаны, клиент ждет цвет&x;y
                             var info = color
                                     + ProtocolConstants.OBJECT_SEPARATOR
                                     + x

@@ -22,6 +22,7 @@ public class Client {
         communicator.start();
     }
 
+    // исправление 1: метод чтобы передать клиенту окно, раньше его не было
     public void setWindow(MainWindow w){
         window = w;
     }
@@ -38,6 +39,7 @@ public class Client {
                 if (window != null ){
                     switch (type){
                         case CommandType.POINT -> {
+                            // исправление 2: было data.split, а надо делить только то что после команды
                             var colorPoint = fullInfo[1].split(ProtocolConstants.OBJECT_SEPARATOR, 2);
                             if (colorPoint.length == 2){
                                 try {
@@ -56,6 +58,7 @@ public class Client {
                         }
                         case FINISH_PAINT -> {
                             try {
+                                // исправление 3: было parseInt(data), а там еще имя команды, поэтому была ошибка
                                 var color = Integer.parseInt(fullInfo[1]);
                                 window.addPoint(color, null);
                             } catch (Exception e){
